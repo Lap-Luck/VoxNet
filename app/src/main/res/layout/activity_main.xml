@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/gray"
+    >
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="208dp"
+        android:text="OPEN GL"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/button_del"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.801" />
+
+    <android.opengl.GLSurfaceView
+        android:id="@+id/glSurfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintDimensionRatio="9:9" />
+
+    <Button
+        android:id="@+id/button_zoom_plus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="zoom+"
+        app:layout_constraintBottom_toTopOf="@+id/glSurfaceView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97" />
+
+    <Button
+        android:id="@+id/button_zoom_minus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="zoom-"
+        app:layout_constraintBottom_toTopOf="@+id/glSurfaceView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.334"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97" />
+
+
+    <Button
+        android:id="@+id/button_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add"
+        app:layout_constraintBottom_toTopOf="@+id/glSurfaceView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97" />
+
+    <Button
+        android:id="@+id/button_del"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="del"
+        app:layout_constraintBottom_toTopOf="@+id/glSurfaceView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.637"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.97" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button_move_x_p"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="move x+" />
+
+            <Button
+                android:id="@+id/button_move_y_p"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="move y+" />
+
+            <Button
+                android:id="@+id/button_move_z_p"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="move z+" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button_move_x_m"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="move x-" />
+
+            <Button
+                android:id="@+id/button_move_y_m"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="move y-" />
+
+            <Button
+                android:id="@+id/button_move_z_m"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="move z-" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button_color_r"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="red" />
+
+            <Button
+                android:id="@+id/button_color_g"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="green" />
+
+            <Button
+                android:id="@+id/button_color_b"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="blue" />
+        </TableRow>
+    </TableLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
