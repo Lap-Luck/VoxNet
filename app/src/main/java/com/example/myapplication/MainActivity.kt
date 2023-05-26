@@ -52,7 +52,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.Zapisz.setOnClickListener{
             if(checkPermission()){
-                saveFile()
+                //saveFile(binding.nazwa.text.toString().trim(),binding.zawartosc.text.toString())
+                saveFile("res.txt",editor.save_to_string())
+                saveFile("res.txt",editor.save_to_string())
             }else{
                 requestPermision()
             }
@@ -92,26 +94,35 @@ class MainActivity : AppCompatActivity() {
 
     }
     //Read file
-    private fun readFile(path: String)
+    private fun readFile(path: String):String
     {
-        val split: List<String> = path.split(":")
-        val myExternalFile = File(Environment.getExternalStorageDirectory().toString()+"/"+split[1])
-        try{
-            var fileInputStream = FileInputStream(myExternalFile)
+        Log.e("READ CONTENT","try")
+        val myFile=File(path)
+        assert(myFile.exists())
+        if(true){
+            try{
+                Log.e("READ CONTENT","OK")
+                var fileInputStream = FileInputStream(myFile)
 
-            var inputStreamReader: InputStreamReader = InputStreamReader(fileInputStream)
-            val bufferedReader: BufferedReader = BufferedReader(inputStreamReader)
-            val stringBuilder: StringBuilder = StringBuilder()
-            var text: String? = null
-            while ({ text = bufferedReader.readLine(); text }() != null) {
-                stringBuilder.append(text)
+                var inputStreamReader: InputStreamReader = InputStreamReader(fileInputStream)
+                val bufferedReader: BufferedReader = BufferedReader(inputStreamReader)
+                val stringBuilder: StringBuilder = StringBuilder()
+                var text: String? = null
+                while ({ text = bufferedReader.readLine(); text }() != null) {
+                    stringBuilder.append(text)
+                    stringBuilder.append("\n")
+                }
+                fileInputStream.close()
+                Log.e("CONTENT",stringBuilder.toString())
+                return stringBuilder.toString()
+            } catch (e: IOException) {
+                e.printStackTrace()
+                assert(false)
+                return ""
             }
-            fileInputStream.close()
-            binding.Wynik.text = stringBuilder
-        } catch (e: IOException) {
-            e.printStackTrace()
-            binding.Wynik.text = "Nie dziala"
         }
+
+        return ""
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -119,12 +130,15 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == 333 && resultCode == RESULT_OK) {
             val selectedFile = data?.data
-            readFile(selectedFile?.path.toString())
+            Log.e("READING",selectedFile?.path.toString())
+            //binding.Wynik.text =readFile(selectedFile?.path.toString())
+            editor.load_from_string(readFile(selectedFile?.path.toString()))
         }}
 
     //Save file
-    private fun saveFile()
+    private fun saveFile(path:String,content:String)
     {
+        Log.e("SAVE","XX")
         //Creating app folder if it doesnt exist
         val myExternalDirectory = File(Environment.getExternalStorageDirectory().toString()+"/VoxNet")
         if(!myExternalDirectory.exists())
@@ -133,12 +147,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         //If name is not null
-        if(binding.nazwa.text.toString().trim() != null)
+        if(path != null)
         {
             val myExternalFile = File(myExternalDirectory.path, binding.nazwa.text.toString().trim())
             try {
                 val fileOutPutStream = FileOutputStream(myExternalFile)
-                fileOutPutStream.write(binding.zawartosc.text.toString().toByteArray())
+                fileOutPutStream.write(content.toByteArray())
                 fileOutPutStream.close()
             } catch (e: IOException) {
                 e.printStackTrace()
@@ -148,7 +162,9 @@ class MainActivity : AppCompatActivity() {
 
     //Ask for permition
     private fun requestPermision(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) //TODO add for version 10 and below
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)//TODO add for version 10 and below
+        {
+            Log.e("FILE_PER","XX")
             try {
                 val intent = Intent()
                 intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
@@ -161,6 +177,12 @@ class MainActivity : AppCompatActivity() {
                 intent.action = Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
                 storageActivityResultLauncher.launch(intent)
             }
+
+        }
+        else{
+            Log.e("FILE_PER","YY")
+            assert(false)
+        }
     }
 
     private val storageActivityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult())
@@ -177,6 +199,6 @@ class MainActivity : AppCompatActivity() {
     //Checking app permision to write and read files
     @RequiresApi(Build.VERSION_CODES.R) //TODO add permisions for android 10 and below
     private fun checkPermission(): Boolean{
-        return Environment.isExternalStorageManager()
+        return true//Environment.isExternalStorageManager()
     }
 }

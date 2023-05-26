@@ -21,10 +21,12 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
         var brush=MeshInstance().also {
             it.mesh=parseOBJ(example().cube)
             it.material= Material().also { it.color= Vec4(1.0,1.0,0.5,1.0) }
+            it.name="voxel"
         }
         var cursor3d=MeshInstance().also {
             it.mesh=parseOBJ(example().obj)
             it.material= Material().also { it.color= Vec4(0.0,1.0,0.0,1.0) }
+            it.name="cursor"
         }
         //mesh Instance that we add per every voxel
         var scene=arrayOf<MeshInstance>()
@@ -84,6 +86,7 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
                 scene+=arrayOf<MeshInstance>(brush.copy().also {
                     it.pos= cursor3d.pos
                     it.material=cursor3d.material
+                    it.name= brush.name//WHY
                 })
             }
             R.id.button_del->{
@@ -156,5 +159,50 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
         }
         return true
     }
+
+    fun save_to_string():String{
+        var res=""
+        Log.w("START",">>>>>>>>>>>>>>>")
+        Log.w("FULL SCENE SIZE", scene.size.toString())
+        for(m in scene){
+            Log.w("LOOP", m.name)
+            if(m.name=="voxel"){
+                Log.e("MESH","VOX")
+                res+=m.pos.x.toString()+","+m.pos.y.toString()+","+m.pos.z.toString()+","+(
+                        m.material.color.r.toString()+","+m.material.color.g.toString()+","+m.material.color.b.toString()
+                        )+"\n"
+
+            }
+            else{
+                Log.e("MESH","??")
+            }
+        }
+        Log.w("SCENE",res)
+        Log.e("SCENE_SIZE",res.length.toString())
+        Log.w("END",">>>>>>>>>>>>>>>")
+        return res
+    }
+    fun load_from_string(file:String){
+        var new_scene=arrayOf<MeshInstance>()
+        for(m in scene){
+            if(m.name!="voxel"){
+                new_scene+=arrayOf<MeshInstance>(m)
+            }
+        }
+        Log.e("File",file)
+        for (line in file.split("\n")){
+            Log.e("LINe",line)
+            if (line.length>5){
+                val mesh_data=line.split(",").map { it.toFloat() }
+                new_scene+=arrayOf<MeshInstance>(brush.copy().also {
+                    it.pos= Vec3(mesh_data[0],mesh_data[1],mesh_data[2])
+                    it.material=Material().also { it.color= Vec4(mesh_data[3],mesh_data[4],mesh_data[5],1.0) }
+                })
+            }
+        }
+        scene=new_scene
+    }
+
+
 }
 
