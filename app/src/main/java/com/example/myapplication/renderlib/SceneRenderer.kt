@@ -132,6 +132,9 @@ class SceneRenderer: GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT or GLES20.GL_DEPTH_BUFFER_BIT)
 
 
+        var editor_get_Camera_position=editor.get_Camera_position()
+        var editor_get_Camera_look_at=editor.get_Camera_look_at()
+
 
         var to_draw=editor.n_render()
         for (e in to_draw) {
@@ -189,8 +192,8 @@ class SceneRenderer: GLSurfaceView.Renderer {
                 var ratio=1.0f
                 val projection = GLM.perspective(GLM.PIf * 0.25f, ratio, 0.1f, 100.0f)
                 var view = GLM.lookAt(
-                    editor.get_Camera_position(),
-                    editor.get_Camera_look_at(),
+                    editor_get_Camera_position,
+                    editor_get_Camera_look_at,
                     Vec3(0f,1f,0f),
                 )
                 return projection * view
