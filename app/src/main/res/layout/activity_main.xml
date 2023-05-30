@@ -27,7 +27,8 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
 
-        app:layout_constraintDimensionRatio="9:9" />
+        app:layout_constraintDimensionRatio="9:9"
+        tools:layout_editor_absoluteX="-38dp" />
 
     <Button
         android:id="@+id/button_zoom_plus"
@@ -78,6 +79,45 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.97" />
 
+
+    <Button
+        android:id="@+id/Wybierz"
+        android:layout_width="100dp"
+        android:layout_height="57dp"
+        android:text="Wybierz"
+        app:layout_constraintStart_toEndOf="@+id/tableLayout"
+        app:layout_constraintTop_toTopOf="parent"></Button>
+
+    <Button
+        android:id="@+id/Zapisz"
+        android:layout_width="100dp"
+        android:layout_height="57dp"
+        android:text="Zapisz"
+        app:layout_constraintStart_toEndOf="@+id/tableLayout"
+        app:layout_constraintTop_toBottomOf="@+id/Wybierz"></Button>
+
+    <TextView
+        android:id="@+id/Wynik"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout"></TextView>
+
+    <EditText
+        android:id="@+id/nazwa"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:hint="example.txt"
+        app:layout_constraintStart_toStartOf="@+id/Zapisz"
+        app:layout_constraintTop_toBottomOf="@+id/Zapisz"></EditText>
+
+    <EditText
+        android:id="@+id/zawartosc"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:hint="Zawartość"
+        app:layout_constraintStart_toStartOf="@+id/nazwa"
+        app:layout_constraintTop_toBottomOf="@+id/nazwa"></EditText>
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="wrap_content"

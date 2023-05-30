@@ -7,6 +7,7 @@ class MeshInstance{
     var mesh:Mesh=Mesh()
     var material: Material =Material()
     var pos:Vec3= Vec3(0.0)
+    var name:String=""
     fun copy():MeshInstance{
         var res=MeshInstance()
         res.mesh=mesh
