@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:text="OPEN GL"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/zawartosc" />
+
+
+    <Button
+        android:id="@+id/Wybierz"
+        android:layout_width="100dp"
+        android:layout_height="57dp"
+        android:text="Wybierz"
+        app:layout_constraintStart_toEndOf="@+id/tableLayout"
+        app:layout_constraintTop_toTopOf="parent"></Button>
+
+    <Button
+        android:id="@+id/Zapisz"
+        android:layout_width="100dp"
+        android:layout_height="57dp"
+        android:text="Zapisz"
+        app:layout_constraintStart_toEndOf="@+id/tableLayout"
+        app:layout_constraintTop_toBottomOf="@+id/Wybierz"></Button>
+
+    <TextView
+        android:id="@+id/Wynik"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout"></TextView>
+
+    <EditText
+        android:id="@+id/nazwa"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:hint="example.txt"
+        app:layout_constraintStart_toStartOf="@+id/Zapisz"
+        app:layout_constraintTop_toBottomOf="@+id/Zapisz"></EditText>
+
+    <EditText
+        android:id="@+id/zawartosc"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:hint="Zawartość"
+        app:layout_constraintStart_toStartOf="@+id/nazwa"
+        app:layout_constraintTop_toBottomOf="@+id/nazwa"></EditText>
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="202dp">
+
+            <Button
+                android:id="@+id/button_move_x_p"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="move x+" />
+
+            <Button
+                android:id="@+id/button_move_y_p"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="move y+" />
+
+            <Button
+                android:id="@+id/button_move_z_p"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="move z+" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button_move_x_m"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="move x-" />
+
+            <Button
+                android:id="@+id/button_move_y_m"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="move y-" />
+
+            <Button
+                android:id="@+id/button_move_z_m"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="move z-" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button_color_r"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="red" />
+
+            <Button
+                android:id="@+id/button_color_g"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="green" />
+
+            <Button
+                android:id="@+id/button_color_b"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="blue" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/button_zoom_plus"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="ZOOM+" />
+
+            <Button
+                android:id="@+id/button_zoom_minus"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="ZOOM-" />
+
+            <Button
+                android:id="@+id/button_add"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="ADD" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:id="@+id/button_del"
+                android:layout_width="94dp"
+                android:layout_height="57dp"
+                android:text="DEL" />
+        </TableRow>
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

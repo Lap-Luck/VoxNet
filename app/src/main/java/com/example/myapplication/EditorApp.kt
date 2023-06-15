@@ -81,7 +81,7 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
 
     override fun onClick(button: View?) {
         when(button?.id){
-            R.id.button_add->{
+            R.id.ADD_elem->{
                 Log.d("Vexel add",cursor3d.pos.toString())
                 scene+=arrayOf<MeshInstance>(brush.copy().also {
                     it.pos= cursor3d.pos
@@ -89,7 +89,7 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
                     it.name= brush.name//WHY
                 })
             }
-            R.id.button_del->{
+            R.id.DEL_elem->{
                 Log.d("Vexel delete",cursor3d.pos.toString())
                 var n_scene=arrayOf<MeshInstance>()
                 for (ob in scene){
@@ -107,21 +107,21 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
                 scene=n_scene
 
             }
-            R.id.button_move_x_m->{cursor3d.pos=cursor3d.pos+Vec3(-2f,0f,0f)}
-            R.id.button_move_x_p->{cursor3d.pos=cursor3d.pos+Vec3(2f,0f,0f)}
-            R.id.button_move_y_m->{cursor3d.pos=cursor3d.pos+Vec3(0f,-2f,0f)}
-            R.id.button_move_y_p->{cursor3d.pos=cursor3d.pos+Vec3(0f,2f,0f)}
-            R.id.button_move_z_m->{cursor3d.pos=cursor3d.pos+Vec3(0f,0f,-2f)}
-            R.id.button_move_z_p->{cursor3d.pos=cursor3d.pos+Vec3(0f,0f,2f)}
+            R.id.X_Minus->{cursor3d.pos=cursor3d.pos+Vec3(-2f,0f,0f)}
+            R.id.X_Add->{cursor3d.pos=cursor3d.pos+Vec3(2f,0f,0f)}
+            R.id.Y_Minus->{cursor3d.pos=cursor3d.pos+Vec3(0f,-2f,0f)}
+            R.id.Y_Add->{cursor3d.pos=cursor3d.pos+Vec3(0f,2f,0f)}
+            R.id.Z_Minus->{cursor3d.pos=cursor3d.pos+Vec3(0f,0f,-2f)}
+            R.id.Z_Add->{cursor3d.pos=cursor3d.pos+Vec3(0f,0f,2f)}
 
-            R.id.button_color_r->{cursor3d.material= Material().also { it.color= Vec4(1.0,0.0,0.0,1.0) }}
-            R.id.button_color_g->{cursor3d.material= Material().also { it.color= Vec4(0.0,1.0,0.0,1.0) }}
-            R.id.button_color_b->{cursor3d.material= Material().also { it.color= Vec4(0.0,0.0,1.0,1.0) }}
+            R.id.Red_color->{cursor3d.material= Material().also { it.color= Vec4(1.0,0.0,0.0,1.0) }}
+            R.id.Green_color->{cursor3d.material= Material().also { it.color= Vec4(0.0,1.0,0.0,1.0) }}
+            R.id.Blue_color->{cursor3d.material= Material().also { it.color= Vec4(0.0,0.0,1.0,1.0) }}
 
-            R.id.button_zoom_minus->{
+            R.id.Zoom_Minus->{
                 Camera_start_pos=Camera_start_pos*(1.0f/0.9f)
             }
-            R.id.button_zoom_plus->{
+            R.id.Zoom_Add->{
                 Camera_start_pos=Camera_start_pos*0.9f
                 onButtomPressed()
             }

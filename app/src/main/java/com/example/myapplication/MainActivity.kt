@@ -9,12 +9,14 @@ import android.opengl.GLSurfaceView
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.opengl.GLES20
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
 import android.util.Log
 import android.view.*
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import com.example.myapplication.databinding.ActivityMainBinding
@@ -39,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.Wybierz.setOnClickListener{
+        binding.saving.ChooseFile.setOnClickListener{
             if(checkPermission()){
                 val intent = Intent()
                     .setType("text/*")
@@ -50,10 +52,8 @@ class MainActivity : AppCompatActivity() {
                 requestPermision()
             }
         }
-        binding.Zapisz.setOnClickListener{
+        binding.saving.SaveFile.setOnClickListener{
             if(checkPermission()){
-                //saveFile(binding.nazwa.text.toString().trim(),binding.zawartosc.text.toString())
-                saveFile("res.txt",editor.save_to_string())
                 saveFile("res.txt",editor.save_to_string())
             }else{
                 requestPermision()
@@ -65,16 +65,73 @@ class MainActivity : AppCompatActivity() {
         editor.conte=this
 
         for (id in intArrayOf(
-            R.id.button_zoom_plus,
-            R.id.button_zoom_minus,
-            R.id.button_move_x_m,R.id.button_move_y_m,R.id.button_move_z_m,
-            R.id.button_move_x_p,R.id.button_move_y_p,R.id.button_move_z_p,
-            R.id.button_color_r,R.id.button_color_g,R.id.button_color_b,
-            R.id.button_del,
-            R.id.button_add,
+            R.id.Zoom_Add,
+            R.id.Zoom_Minus,
+            R.id.X_Minus,R.id.Y_Minus,R.id.Z_Minus,
+            R.id.X_Add,R.id.Y_Add,R.id.Z_Add,
+            R.id.Red_color,R.id.Green_color,R.id.Blue_color,
+            R.id.DEL_elem,
+            R.id.ADD_elem,
         )){
             findViewById<Button>(id).setOnClickListener(editor)
         }
+        fun clear_ui(){
+            for (id in intArrayOf(
+                R.id.navigation,
+                R.id.saving,
+                R.id.zoom,
+                R.id.add_del,
+                R.id.color_pallet
+            )){
+                findViewById<View>(id).visibility=View.GONE
+            }
+        }
+
+
+
+
+        findViewById<ImageButton>(R.id.show_nav).setOnClickListener({
+            if(findViewById<View>(R.id.navigation).visibility == View.VISIBLE){
+                findViewById<View>(R.id.navigation).visibility=View.GONE
+            }else{
+                clear_ui()
+                findViewById<View>(R.id.navigation).visibility=View.VISIBLE
+            }
+
+        })
+        findViewById<ImageButton>(R.id.show_save).setOnClickListener({
+            if(findViewById<View>(R.id.saving).visibility == View.VISIBLE){
+                findViewById<View>(R.id.saving).visibility=View.GONE
+            }else{
+                clear_ui()
+                findViewById<View>(R.id.saving).visibility=View.VISIBLE
+            }
+        })
+        findViewById<ImageButton>(R.id.show_zoom).setOnClickListener({
+            if(findViewById<View>(R.id.zoom).visibility == View.VISIBLE){
+                findViewById<View>(R.id.zoom).visibility=View.GONE
+            }else{
+                clear_ui()
+                findViewById<View>(R.id.zoom).visibility=View.VISIBLE
+            }
+        })
+        findViewById<ImageButton>(R.id.show_add).setOnClickListener({
+            if(findViewById<View>(R.id.add_del).visibility == View.VISIBLE){
+                findViewById<View>(R.id.add_del).visibility=View.GONE
+            }else{
+                clear_ui()
+                findViewById<View>(R.id.add_del).visibility=View.VISIBLE
+            }
+        })
+        findViewById<ImageButton>(R.id.show_color).setOnClickListener({
+            if(findViewById<View>(R.id.color_pallet).visibility == View.VISIBLE){
+                findViewById<View>(R.id.color_pallet).visibility=View.GONE
+            }else{
+                clear_ui()
+                findViewById<View>(R.id.color_pallet).visibility=View.VISIBLE
+            }
+        })
+
         glSurfaceView.setOnTouchListener(editor)
 
         //Loading texture
@@ -97,10 +154,13 @@ class MainActivity : AppCompatActivity() {
     private fun readFile(path: String):String
     {
         Log.e("READ CONTENT","try")
-        val myFile=File(path)
-        assert(myFile.exists())
+
         if(true){
             try{
+                var myFile = File(path)
+                if(!path.contains(Environment.getExternalStorageDirectory().toString()))
+                    myFile=File(Environment.getExternalStorageDirectory().toString()+'/'+path.split(':')[1])
+
                 Log.e("READ CONTENT","OK")
                 var fileInputStream = FileInputStream(myFile)
 
@@ -116,6 +176,7 @@ class MainActivity : AppCompatActivity() {
                 Log.e("CONTENT",stringBuilder.toString())
                 return stringBuilder.toString()
             } catch (e: IOException) {
+                binding.tools.Wynik.text = "Blad"
                 e.printStackTrace()
                 assert(false)
                 return ""
@@ -131,7 +192,6 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == 333 && resultCode == RESULT_OK) {
             val selectedFile = data?.data
             Log.e("READING",selectedFile?.path.toString())
-            //binding.Wynik.text =readFile(selectedFile?.path.toString())
             editor.load_from_string(readFile(selectedFile?.path.toString()))
         }}
 
@@ -149,7 +209,7 @@ class MainActivity : AppCompatActivity() {
         //If name is not null
         if(path != null)
         {
-            val myExternalFile = File(myExternalDirectory.path, binding.nazwa.text.toString().trim())
+            val myExternalFile = File(myExternalDirectory.path, binding.saving.FileName.text.toString().trim())
             try {
                 val fileOutPutStream = FileOutputStream(myExternalFile)
                 fileOutPutStream.write(content.toByteArray())
@@ -192,6 +252,7 @@ class MainActivity : AppCompatActivity() {
         {
             if(Environment.isExternalStorageManager())
             {
+                saveFile("res.txt",editor.save_to_string())
             }
         }
     }
@@ -199,6 +260,6 @@ class MainActivity : AppCompatActivity() {
     //Checking app permision to write and read files
     @RequiresApi(Build.VERSION_CODES.R) //TODO add permisions for android 10 and below
     private fun checkPermission(): Boolean{
-        return true//Environment.isExternalStorageManager()
+        return Environment.isExternalStorageManager()
     }
 }

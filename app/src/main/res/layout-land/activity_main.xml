@@ -28,9 +28,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/adddel" />
-        </TableRow>
-        <TableRow>
+                app:srcCompat="@drawable/adddel"/>
             <ImageButton
                 android:id="@+id/show_zoom"
                 android:layout_width="wrap_content"
@@ -38,6 +36,8 @@
                 app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/glass" />
+        </TableRow>
+        <TableRow>
             <ImageButton
                 android:id="@+id/show_color"
                 android:layout_width="wrap_content"
@@ -45,8 +45,6 @@
                 app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/colorwheel" />
-        </TableRow>
-        <TableRow>
             <ImageButton
                 android:id="@+id/show_save"
                 android:layout_width="wrap_content"
@@ -62,9 +60,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/purple_200"
-        app:layout_constraintStart_toEndOf="@+id/tableLayout"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout">
+
         <TableRow>
+
             <include
                 android:id="@+id/tools"
                 layout="@layout/main_part1"
@@ -72,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent" />
+
             <include
                 android:id="@+id/navigation"
                 layout="@layout/position"
@@ -79,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent" />
+
             <include
                 android:id="@+id/saving"
                 layout="@layout/save"
@@ -86,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent" />
+
             <include
                 android:id="@+id/zoom"
                 layout="@layout/zoom"
@@ -93,6 +96,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent" />
+
             <include
                 android:id="@+id/add_del"
                 layout="@layout/add_del"
@@ -100,6 +104,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent" />
+
             <include
                 android:id="@+id/color_pallet"
                 layout="@layout/color"
@@ -113,9 +118,10 @@
 
     <android.opengl.GLSurfaceView
         android:id="@+id/glSurfaceView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="9:9"
-        tools:layout_editor_absoluteX="-38dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

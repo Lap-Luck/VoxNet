@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/Choose_File"
+        android:layout_width="100dp"
+        android:layout_height="57dp"
+        android:text="Choose file"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></Button>
+
+    <Button
+        android:id="@+id/Save_File"
+        android:layout_width="100dp"
+        android:layout_height="57dp"
+        android:text="Save file"
+        app:layout_constraintStart_toEndOf="@+id/Choose_File"
+        app:layout_constraintTop_toTopOf="parent"></Button>
+
+    <EditText
+        android:id="@+id/File_Name"
+        android:layout_width="200dp"
+        android:layout_height="57dp"
+        android:hint="FileName.txt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Choose_File"></EditText>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
