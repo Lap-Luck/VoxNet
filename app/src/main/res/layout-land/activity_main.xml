@@ -52,6 +52,13 @@
                 app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/floopy" />
+            <ImageButton
+                android:id="@+id/server"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/net_icon" />
         </TableRow>
     </TableLayout>
 

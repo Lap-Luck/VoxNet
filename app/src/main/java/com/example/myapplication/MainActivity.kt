@@ -6,11 +6,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.opengl.GLSurfaceView
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.opengl.GLES20
-import android.opengl.Visibility
 import android.os.Build
+import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import android.util.Log
@@ -19,15 +16,17 @@ import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageButton
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.example.myapplication.renderlib.SceneRenderer
-import com.example.myapplication.renderlib.obj.example
-import java.lang.Math.cos
-import java.lang.Math.sin
-
-import de.bixilon.kotlinglm.vec2.Vec2
-import de.bixilon.kotlinglm.vec3.Vec3
+import com.neovisionaries.ws.client.WebSocketFactory
+import com.neovisionaries.ws.client.WebSocket
+import com.neovisionaries.ws.client.WebSocketAdapter
+import com.neovisionaries.ws.client.WebSocketListener
 import java.io.*
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +39,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //var ws: WebSocket = WebSocketFactory().createSocket("ws://192.168.0.220:8001/endpoint")
+        var ws: WebSocket = WebSocketFactory().createSocket("ws://127.0.0.1:8001/endpoint")
+        ws.addListener(object : WebSocketAdapter() {
+            override fun onTextMessage(websocket:WebSocket, message:String) {
+                Log.e("WEB RECIVED", "something")
+                Log.e("WEB RECIVED", message)
+            }
+        })
+
+
+
 
         binding.saving.ChooseFile.setOnClickListener{
             if(checkPermission()){
@@ -75,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         )){
             findViewById<Button>(id).setOnClickListener(editor)
         }
+        findViewById<AppCompatImageButton>(R.id.server).setOnClickListener(editor)//WHY TODO
         fun clear_ui(){
             for (id in intArrayOf(
                 R.id.navigation,

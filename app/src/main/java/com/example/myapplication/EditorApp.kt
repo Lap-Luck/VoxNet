@@ -39,6 +39,7 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
         var Camera_rot_y=0.0f
     }
     lateinit var conte:MainActivity
+    var net:Network?=null
     fun get_Camera_position():Vec3= Camera_pos
     fun get_Camera_look_at():Vec3= Camera_look_at
 
@@ -48,6 +49,9 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
     lateinit var scaleGestureDetector:ScaleGestureDetector
     var scaleFactor = 1f
     fun begin(){
+
+
+
         scaleGestureDetector= ScaleGestureDetector(
             conte,
             object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
@@ -61,6 +65,17 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
                 }
             }
         )
+
+
+
+
+        //net.clear()
+        //net.push("Ala ma kota")
+
+
+
+
+
         scene+=arrayOf<MeshInstance>(cursor3d)
     }
     fun n_render():Array<MeshInstance>{
@@ -79,32 +94,77 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
         Camera_look_at=scene[0].pos
     }
 
-    override fun onClick(button: View?) {
-        when(button?.id){
-            R.id.ADD_elem->{
-                Log.d("Vexel add",cursor3d.pos.toString())
-                scene+=arrayOf<MeshInstance>(brush.copy().also {
-                    it.pos= cursor3d.pos
-                    it.material=cursor3d.material
-                    it.name= brush.name//WHY
-                })
-            }
-            R.id.DEL_elem->{
-                Log.d("Vexel delete",cursor3d.pos.toString())
-                var n_scene=arrayOf<MeshInstance>()
-                for (ob in scene){
-                    var removed=false
-                    if (ob!= cursor3d){
-                        if (ob.pos== cursor3d.pos)
-                        {
-                            removed=true
-                        }
-                    }
-                    if (!removed){
-                        n_scene+=arrayOf<MeshInstance>(ob)
+    fun EditVox(info:String){
+        var data=info.split("|")
+        if (data[0]=="ADD"){
+            Log.e("NEW Vexel add",cursor3d.pos.toString())
+            scene+=arrayOf<MeshInstance>(brush.copy().also {
+                it.pos= Vec3(data[1].toFloat(),data[2].toFloat(),data[3].toFloat())
+                it.material=Material().also { it.color= Vec4(data[4].toFloat(),data[5].toFloat(),data[6].toFloat(),1.0) }
+                it.name= brush.name//WHY
+            })
+        }
+        if (data[0]=="DEL"){
+            var del_pos=Vec3(data[1].toFloat(),data[2].toFloat(),data[3].toFloat())
+            Log.e("NEW Vexel delete",cursor3d.pos.toString())
+            var n_scene=arrayOf<MeshInstance>()
+            for (ob in scene){
+                var removed=false
+                if (ob!= cursor3d){
+                    if (ob.pos== del_pos)
+                    {
+                        removed=true
                     }
                 }
-                scene=n_scene
+                if (!removed){
+                    n_scene+=arrayOf<MeshInstance>(ob)
+                }
+            }
+            scene=n_scene
+        }
+        //assert(info.size==7)//format 0<- 'A' or 'D' 1..3<-x,y,z    4..6<-rgb
+        onButtomPressed()
+    }
+
+
+
+    override fun onClick(button: View?) {
+        when(button?.id){
+            R.id.server->{
+                net=Network { event -> EditVox(event) }
+            }
+
+            R.id.ADD_elem->{
+                var event= arrayOf("ADD",
+                    cursor3d.pos.x.toString(),
+                    cursor3d.pos.y.toString(),
+                    cursor3d.pos.z.toString(),
+                    cursor3d.material.color.r.toString(),
+                    cursor3d.material.color.g.toString(),
+                    cursor3d.material.color.b.toString()
+                    ).reduce{a,b->"$a|$b"}
+                if (net!=null){
+                    net!!.push(event)
+                }
+                else{
+                    EditVox(event)
+                }
+
+
+
+            }
+            R.id.DEL_elem->{
+                var event= arrayOf("DEL",
+                    cursor3d.pos.x.toString(),
+                    cursor3d.pos.y.toString(),
+                    cursor3d.pos.z.toString(),
+                ).reduce{a,b->"$a|$b"}
+                if (net!=null){
+                    net!!.push(event)
+                }
+                else{
+                    EditVox(event)
+                }
 
             }
             R.id.X_Minus->{cursor3d.pos=cursor3d.pos+Vec3(-2f,0f,0f)}
