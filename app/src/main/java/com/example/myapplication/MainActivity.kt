@@ -140,7 +140,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.zoom,
                 R.id.add_del,
                 R.id.color_pallet,
-                R.id.server_connect_to
+                R.id.server_connect_to,
+                R.id.loginscreen,
+                R.id.registerscreen,
+                R.id.file_list
             )){
                 findViewById<View>(id).visibility=View.GONE
             }
