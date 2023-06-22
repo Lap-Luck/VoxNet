@@ -9,11 +9,13 @@ import android.opengl.GLSurfaceView
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.PersistableBundle
 import android.provider.Settings
 import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -39,6 +41,35 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+       // if(findViewById<View>(R.id.navigation).visibility == View.VISIBLE)
+          //  outState.putBoolean("Navigation",true)
+       // if(findViewById<View>(R.id.zoom).visibility == View.VISIBLE)
+         //   outState.putBoolean("Zoom",true)
+       // if(findViewById<View>(R.id.add_del).visibility == View.VISIBLE)
+         //   outState.putBoolean("Add",true)
+       // if(findViewById<View>(R.id.color_pallet).visibility == View.VISIBLE)
+           // outState.putBoolean("Color",true)
+       // if(findViewById<View>(R.id.saving).visibility == View.VISIBLE)
+            //outState.putBoolean("Save",true)
+
+        if(savedInstanceState != null)
+        {
+            if(savedInstanceState.getBoolean("Navigation"))
+                findViewById<View>(R.id.navigation).visibility = View.VISIBLE
+            if(savedInstanceState.getBoolean("Zoom"))
+                findViewById<View>(R.id.zoom).visibility = View.VISIBLE
+            if(savedInstanceState.getBoolean("Add"))
+                findViewById<View>(R.id.add_del).visibility = View.VISIBLE
+            if(savedInstanceState.getBoolean("Color"))
+                findViewById<View>(R.id.color_pallet).visibility = View.VISIBLE
+            if(savedInstanceState.getBoolean("Save"))
+                findViewById<View>(R.id.saving).visibility = View.VISIBLE
+            if(savedInstanceState.getString("File_name") != null)
+                binding.saving.FileName.setText(savedInstanceState.getString("File_name"))
+        }
+
 
         //var ws: WebSocket = WebSocketFactory().createSocket("ws://192.168.0.220:8001/endpoint")
         var ws: WebSocket = WebSocketFactory().createSocket("ws://127.0.0.1:8001/endpoint")
@@ -83,10 +114,15 @@ class MainActivity : AppCompatActivity() {
             R.id.Red_color,R.id.Green_color,R.id.Blue_color,
             R.id.DEL_elem,
             R.id.ADD_elem,
+            R.id.server_connect,
+            R.id.server_disconnect,
+            R.id.button_login,
+            R.id.add_file,
+            R.id.make_public,
         )){
             findViewById<Button>(id).setOnClickListener(editor)
         }
-        findViewById<AppCompatImageButton>(R.id.server).setOnClickListener(editor)//WHY TODO
+        //findViewById<AppCompatImageButton>(R.id.server).setOnClickListener(editor)//WHY TODO
         fun clear_ui(){
             for (id in intArrayOf(
                 R.id.navigation,
@@ -99,23 +135,75 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        var shortcut2view= mapOf(
+            R.id.options to R.id.tableLayout,
+            R.id.show_nav to R.id.navigation,
+            R.id.show_save to R.id.saving,
+            R.id.show_add to R.id.add_del,
+            R.id.show_color to R.id.color_pallet,
+            R.id.show_zoom to R.id.zoom,
+            R.id.server to R.id.server_connect_to,
+        )
+        for ((shortcut,view) in shortcut2view){
+            val change=mapOf(
+                View.VISIBLE to View.GONE,
+                View.INVISIBLE to View.VISIBLE,//to be complete
+                View.GONE to View.VISIBLE,
+            )
+            findViewById<ImageButton>(shortcut).setOnClickListener({
+
+                var window:View=findViewById<View>(view)
+                window.visibility=change[window.visibility]!!
+            })
+        }
+
+        var shortcut2viewB= mapOf(
+            R.id.show_files to R.id.fileList,
+            R.id.show_login to R.id.loginscreen
+        )
+        for ((shortcut,view) in shortcut2viewB){
+            val change=mapOf(
+                View.VISIBLE to View.GONE,
+                View.INVISIBLE to View.VISIBLE,//to be complete
+                View.GONE to View.VISIBLE,
+            )
+            findViewById<Button>(shortcut).setOnClickListener({
+                var window:View=findViewById<View>(view)
+                window.visibility=change[window.visibility]!!
+                findViewById<View>(R.id.server_connect_to).visibility=View.GONE//TODO repair
+            })
+        }
 
 
+
+
+        findViewById<ImageButton>(R.id.clear_filters).setOnClickListener({
+            clear_ui()
+        })
+        /*
+
+
+        findViewById<ImageButton>(R.id.options).setOnClickListener({
+            Log.e("MENU","OPEN MENU")
+            if(findViewById<View>(R.id.tableLayout).visibility == View.VISIBLE){
+                findViewById<View>(R.id.tableLayout).visibility=View.GONE
+            }else{
+                Log.e("MENU","show MENU")
+                findViewById<View>(R.id.tableLayout).visibility=View.VISIBLE
+            }
+        })
 
         findViewById<ImageButton>(R.id.show_nav).setOnClickListener({
             if(findViewById<View>(R.id.navigation).visibility == View.VISIBLE){
                 findViewById<View>(R.id.navigation).visibility=View.GONE
             }else{
-                clear_ui()
                 findViewById<View>(R.id.navigation).visibility=View.VISIBLE
             }
-
         })
         findViewById<ImageButton>(R.id.show_save).setOnClickListener({
             if(findViewById<View>(R.id.saving).visibility == View.VISIBLE){
                 findViewById<View>(R.id.saving).visibility=View.GONE
             }else{
-                clear_ui()
                 findViewById<View>(R.id.saving).visibility=View.VISIBLE
             }
         })
@@ -123,7 +211,6 @@ class MainActivity : AppCompatActivity() {
             if(findViewById<View>(R.id.zoom).visibility == View.VISIBLE){
                 findViewById<View>(R.id.zoom).visibility=View.GONE
             }else{
-                clear_ui()
                 findViewById<View>(R.id.zoom).visibility=View.VISIBLE
             }
         })
@@ -131,7 +218,6 @@ class MainActivity : AppCompatActivity() {
             if(findViewById<View>(R.id.add_del).visibility == View.VISIBLE){
                 findViewById<View>(R.id.add_del).visibility=View.GONE
             }else{
-                clear_ui()
                 findViewById<View>(R.id.add_del).visibility=View.VISIBLE
             }
         })
@@ -139,10 +225,11 @@ class MainActivity : AppCompatActivity() {
             if(findViewById<View>(R.id.color_pallet).visibility == View.VISIBLE){
                 findViewById<View>(R.id.color_pallet).visibility=View.GONE
             }else{
-                clear_ui()
                 findViewById<View>(R.id.color_pallet).visibility=View.VISIBLE
             }
         })
+
+         */
 
         glSurfaceView.setOnTouchListener(editor)
 
@@ -210,25 +297,38 @@ class MainActivity : AppCompatActivity() {
     //Save file
     private fun saveFile(path:String,content:String)
     {
-        Log.e("SAVE","XX")
-        //Creating app folder if it doesnt exist
-        val myExternalDirectory = File(Environment.getExternalStorageDirectory().toString()+"/VoxNet")
-        if(!myExternalDirectory.exists())
+        if(binding.saving.FileName.text.toString().endsWith(".txt"))
         {
-            myExternalDirectory.mkdir()
-        }
-
-        //If name is not null
-        if(path != null)
-        {
-            val myExternalFile = File(myExternalDirectory.path, binding.saving.FileName.text.toString().trim())
-            try {
-                val fileOutPutStream = FileOutputStream(myExternalFile)
-                fileOutPutStream.write(content.toByteArray())
-                fileOutPutStream.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
+            Log.e("SAVE","XX")
+            //Creating app folder if it doesnt exist
+            val myExternalDirectory = File(Environment.getExternalStorageDirectory().toString()+"/VoxNet")
+            if(!myExternalDirectory.exists())
+            {
+                myExternalDirectory.mkdir()
             }
+
+            //If name is not null
+            if(path != null)
+            {
+                val myExternalFile = File(myExternalDirectory.path, binding.saving.FileName.text.toString().trim())
+                try {
+                    val fileOutPutStream = FileOutputStream(myExternalFile)
+                    fileOutPutStream.write(content.toByteArray())
+                    fileOutPutStream.close()
+                    val toast = Toast.makeText(this, "File saved as "+binding.saving.FileName.text, Toast.LENGTH_LONG)
+                    toast.show()
+                    binding.saving.FileName.text.clear()
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    val toast = Toast.makeText(this, "File "+binding.saving.FileName.text+": opening failure", Toast.LENGTH_LONG)
+                    toast.show()
+                    binding.saving.FileName.text.clear()
+                }
+            }
+        }else
+        {
+            val toast = Toast.makeText(this, "File name NEED to end with .txt", Toast.LENGTH_LONG)
+            toast.show()
         }
     }
 
@@ -273,5 +373,32 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.R) //TODO add permisions for android 10 and below
     private fun checkPermission(): Boolean{
         return Environment.isExternalStorageManager()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putString("File_name",binding.saving.FileName.text.toString())
+
+        if(findViewById<View>(R.id.navigation).visibility == View.VISIBLE)
+            outState.putBoolean("Navigation",true)
+        else
+            outState.putBoolean("Navigation",false)
+        if(findViewById<View>(R.id.zoom).visibility == View.VISIBLE)
+            outState.putBoolean("Zoom",true)
+        else
+            outState.putBoolean("Zoom",false)
+        if(findViewById<View>(R.id.add_del).visibility == View.VISIBLE)
+            outState.putBoolean("Add",true)
+        else
+            outState.putBoolean("Add",false)
+        if(findViewById<View>(R.id.color_pallet).visibility == View.VISIBLE)
+            outState.putBoolean("Color",true)
+        else
+            outState.putBoolean("Color",false)
+        if(findViewById<View>(R.id.saving).visibility == View.VISIBLE)
+            outState.putBoolean("Save",true)
+        else
+            outState.putBoolean("Save",false)
     }
 }

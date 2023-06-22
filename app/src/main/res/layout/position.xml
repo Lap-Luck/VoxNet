@@ -5,6 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/ImageX"
+        android:layout_width="57dp"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/ImageY"
+        android:layout_width="57dp"
+        android:layout_height="wrap_content"
+        android:text="Y"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        app:layout_constraintStart_toEndOf="@+id/ImageX"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
+    <TextView
+        android:id="@+id/ImageZ"
+        android:layout_width="57dp"
+        android:layout_height="wrap_content"
+        android:text="Z"
+        android:textSize="20dp"
+        android:textAlignment="center"
+        app:layout_constraintStart_toEndOf="@+id/ImageY"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+
     <Button
         android:id="@+id/X_Add"
         android:layout_width="57dp"
@@ -12,7 +42,7 @@
         android:text="+"
         android:textSize="25dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/ImageX"></Button>
 
     <Button
         android:id="@+id/X_Minus"
@@ -30,7 +60,7 @@
         android:text="+"
         android:textSize="25dp"
         app:layout_constraintStart_toEndOf="@+id/X_Add"
-        app:layout_constraintTop_toTopOf="parent"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/ImageY"></Button>
 
     <Button
         android:id="@+id/Y_Minus"
@@ -48,7 +78,7 @@
         android:text="+"
         android:textSize="25dp"
         app:layout_constraintStart_toEndOf="@+id/Y_Add"
-        app:layout_constraintTop_toTopOf="parent"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/ImageZ"></Button>
 
     <Button
         android:id="@+id/Z_Minus"

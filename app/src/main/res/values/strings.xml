@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">VoxNet</string>
+    <string name="app_name">Voxel Test</string>
 
     <string-array name="tools_list">
         <item>education</item>

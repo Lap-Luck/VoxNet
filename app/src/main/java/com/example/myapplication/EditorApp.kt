@@ -3,6 +3,9 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
 import com.example.myapplication.EditorApp.Companion.cursor3d
 import com.example.myapplication.renderlib.MeshInstance
 import com.example.myapplication.renderlib.Material
@@ -39,7 +42,8 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
         var Camera_rot_y=0.0f
     }
     lateinit var conte:MainActivity
-    var net:Network?=null
+    var net:NetworkFile?=null
+    var account:Account?=null
     fun get_Camera_position():Vec3= Camera_pos
     fun get_Camera_look_at():Vec3= Camera_look_at
 
@@ -94,6 +98,51 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
         Camera_look_at=scene[0].pos
     }
 
+    fun on_file_selected(f:FileInfo){
+        Log.e("FILE OPEN",f.name)
+        net=NetworkFile({event -> EditVox(event)},f,account!!)
+        conte.runOnUiThread{
+            conte.findViewById<View>(R.id.fileList).visibility=View.GONE
+        }
+
+    }
+
+    fun on_add_file(){
+        Log.e("FILE add","TRY")
+        var name=conte.findViewById<EditText>(R.id.file_name).text.toString()
+        add_file(name,account!!)//TODO DO NOT CRUSH
+        var files=query_files(account!!)
+        conte.runOnUiThread({
+            for (f in files){
+                var new_button=Button(conte)
+                new_button.text=f.name
+                new_button.setOnClickListener({on_file_selected((f))})
+                var fl=conte.findViewById<LinearLayout>(R.id.file_list)
+                fl.addView(new_button)
+            }
+        })
+
+    }
+
+    fun on_login(){
+        Log.e("LOGIN","on login")
+        var et_login=conte.findViewById<EditText>(R.id.editText_login)
+        var et_pass=conte.findViewById<EditText>(R.id.editText_pass)
+
+        var login=et_login.text.toString()
+        var pass=et_pass.text.toString()
+        Log.e("LOGIN", login+"->"+pass)
+        var a=Account(login,pass,true) //register
+        if (a.login==""){
+            Log.e("LOGIN", "ACCOUNT EXIST")
+            a=Account(login,pass) //login
+        }
+        this.account=a
+        var view=conte.findViewById<View>(R.id.loginscreen)
+        conte.runOnUiThread({view.visibility=View.GONE})
+        Log.e("LOGIN", a.login)
+    }
+
     fun EditVox(info:String){
         var data=info.split("|")
         if (data[0]=="ADD"){
@@ -130,8 +179,16 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
 
     override fun onClick(button: View?) {
         when(button?.id){
-            R.id.server->{
-                net=Network { event -> EditVox(event) }
+            R.id.server_connect->{
+                scene=arrayOf<MeshInstance>(cursor3d)
+                //net=Network { event -> EditVox(event) }
+            }
+            R.id.server_disconnect->{
+                net=null
+            }
+            R.id.add_file->{
+                Thread{on_add_file()}.start()
+
             }
 
             R.id.ADD_elem->{
@@ -151,6 +208,10 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
                 }
 
 
+
+            }
+            R.id.button_login->{
+                Thread{on_login()}.start()
 
             }
             R.id.DEL_elem->{

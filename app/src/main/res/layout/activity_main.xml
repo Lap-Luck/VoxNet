@@ -6,15 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="@color/gray">
+
+
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/purple_200"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:translationZ="100dp"
+        app:layout_constraintTop_toBottomOf="@+id/options">
 
         <TableRow>
+
+
             <ImageButton
                 android:id="@+id/show_nav"
                 android:layout_width="wrap_content"
@@ -22,6 +28,7 @@
                 app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/navigation" />
+
             <ImageButton
                 android:id="@+id/show_add"
                 android:layout_width="wrap_content"
@@ -30,6 +37,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/adddel" />
         </TableRow>
+
+
         <TableRow>
             <ImageButton
                 android:id="@+id/show_zoom"
@@ -38,6 +47,7 @@
                 app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/glass" />
+
             <ImageButton
                 android:id="@+id/show_color"
                 android:layout_width="wrap_content"
@@ -60,19 +70,40 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/net_icon" />
-
+                app:srcCompat="@drawable/server" />
         </TableRow>
+        <TableRow>
+            <ImageButton
+            android:id="@+id/clear_filters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/clear" />
+            <ImageButton
+                android:id="@+id/setings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/gear" />
+        </TableRow>
+
+
     </TableLayout>
+
 
     <TableLayout
         android:id="@+id/tableLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/purple_200"
-        app:layout_constraintStart_toEndOf="@+id/tableLayout"
+        android:translationZ="90dp"
+        app:layout_constraintStart_toEndOf="@+id/options"
         app:layout_constraintTop_toTopOf="parent">
+
         <TableRow>
+
             <include
                 android:id="@+id/tools"
                 layout="@layout/main_part1"
@@ -80,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent" />
+
             <include
                 android:id="@+id/navigation"
                 layout="@layout/position"
@@ -87,13 +119,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent" />
-            <include
-                android:id="@+id/saving"
-                layout="@layout/save"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent" />
+
             <include
                 android:id="@+id/zoom"
                 layout="@layout/zoom"
@@ -101,6 +127,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent" />
+
             <include
                 android:id="@+id/add_del"
                 layout="@layout/add_del"
@@ -108,16 +135,44 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent" />
-            <include
-                android:id="@+id/color_pallet"
-                layout="@layout/color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent" />
         </TableRow>
+        <include
+            android:id="@+id/server_connect_to"
+            layout="@layout/server_connect_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <include
+            android:id="@+id/saving"
+            layout="@layout/save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent" />
+        <include
+            android:id="@+id/color_pallet"
+            layout="@layout/color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </TableLayout>
+
+
+
+
+
+    <ImageButton
+        android:id="@+id/options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/gear" />
+
 
     <android.opengl.GLSurfaceView
         android:id="@+id/glSurfaceView"
@@ -126,4 +181,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="9:9"
         tools:layout_editor_absoluteX="-38dp" />
+
+    <include
+        android:id="@+id/loginscreen"
+        layout="@layout/login"
+        android:translationZ="110dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <include
+        android:id="@+id/fileList"
+        layout="@layout/file_list"
+        android:translationZ="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
