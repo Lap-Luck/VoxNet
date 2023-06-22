@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -21,6 +22,9 @@ public final class RegisterBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
+  public final ImageView imageView;
+
+  @NonNull
   public final EditText regLoggin;
 
   @NonNull
@@ -29,9 +33,10 @@ public final class RegisterBinding implements ViewBinding {
   @NonNull
   public final Button register;
 
-  private RegisterBinding(@NonNull ConstraintLayout rootView, @NonNull EditText regLoggin,
-      @NonNull EditText regPass, @NonNull Button register) {
+  private RegisterBinding(@NonNull ConstraintLayout rootView, @NonNull ImageView imageView,
+      @NonNull EditText regLoggin, @NonNull EditText regPass, @NonNull Button register) {
     this.rootView = rootView;
+    this.imageView = imageView;
     this.regLoggin = regLoggin;
     this.regPass = regPass;
     this.register = register;
@@ -64,6 +69,12 @@ public final class RegisterBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.imageView;
+      ImageView imageView = ViewBindings.findChildViewById(rootView, id);
+      if (imageView == null) {
+        break missingId;
+      }
+
       id = R.id.reg_loggin;
       EditText regLoggin = ViewBindings.findChildViewById(rootView, id);
       if (regLoggin == null) {
@@ -82,7 +93,8 @@ public final class RegisterBinding implements ViewBinding {
         break missingId;
       }
 
-      return new RegisterBinding((ConstraintLayout) rootView, regLoggin, regPass, register);
+      return new RegisterBinding((ConstraintLayout) rootView, imageView, regLoggin, regPass,
+          register);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

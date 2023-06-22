@@ -1,8 +1,8 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-3    package="com.example.myapplication"
+3    package="com.example.voxnet.alpha"
 4    android:versionCode="1"
-5    android:versionName="1.0" >
+5    android:versionName="1.1" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="24"
@@ -108,7 +108,7 @@
 62-->[com.google.firebase:firebase-common:20.1.0] C:\Users\KingDragomon\.gradle\caches\transforms-3\c4f5bf8c431c74849d2a4c8a6a4ba645\transformed\firebase-common-20.1.0\AndroidManifest.xml:26:9-31:39
 63            android:name="com.google.firebase.provider.FirebaseInitProvider"
 63-->[com.google.firebase:firebase-common:20.1.0] C:\Users\KingDragomon\.gradle\caches\transforms-3\c4f5bf8c431c74849d2a4c8a6a4ba645\transformed\firebase-common-20.1.0\AndroidManifest.xml:27:13-77
-64            android:authorities="com.example.myapplication.firebaseinitprovider"
+64            android:authorities="com.example.voxnet.alpha.firebaseinitprovider"
 64-->[com.google.firebase:firebase-common:20.1.0] C:\Users\KingDragomon\.gradle\caches\transforms-3\c4f5bf8c431c74849d2a4c8a6a4ba645\transformed\firebase-common-20.1.0\AndroidManifest.xml:28:13-72
 65            android:directBootAware="true"
 65-->[com.google.firebase:firebase-common:20.1.0] C:\Users\KingDragomon\.gradle\caches\transforms-3\c4f5bf8c431c74849d2a4c8a6a4ba645\transformed\firebase-common-20.1.0\AndroidManifest.xml:29:13-43

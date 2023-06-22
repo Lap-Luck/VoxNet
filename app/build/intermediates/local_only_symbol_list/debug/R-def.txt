@@ -20,6 +20,7 @@ drawable gear
 drawable glass
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable icon
 drawable navigation
 drawable net_icon
 drawable server
@@ -74,6 +75,7 @@ id file_list
 id file_name
 id glSurfaceView
 id guest
+id imageView
 id loginscreen
 id make_public
 id navigation

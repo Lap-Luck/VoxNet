@@ -12,12 +12,12 @@
         "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\drawable\\wall.jpg"
     },
     {
-        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\merged_res\\debug\\mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.webp"
-    },
-    {
         "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\merged_res\\debug\\mipmap-xhdpi_ic_launcher_round.webp.flat",
         "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\merged_res\\debug\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.webp"
     },
     {
         "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\merged_res\\debug\\layout_color.xml.flat",
@@ -70,6 +70,10 @@
     {
         "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\merged_res\\debug\\drawable_gear.png.flat",
         "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\drawable\\gear.png"
+    },
+    {
+        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\merged_res\\debug\\drawable_icon.png.flat",
+        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\drawable\\icon.png"
     },
     {
         "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\merged_res\\debug\\mipmap-anydpi-v26_ic_launcher.xml.flat",
