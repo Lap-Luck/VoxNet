@@ -109,9 +109,11 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
 
     }
 
-
+    var in_case_or_turn=update_file_list()
 
     fun update_file_list(){
+        if(account!=null){
+
         Thread{
             var files=query_files(account!!)
             conte.runOnUiThread({
@@ -134,6 +136,7 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
 
         }.start()
 
+        }
     }
 
     fun on_add_file(public:Boolean=false){
