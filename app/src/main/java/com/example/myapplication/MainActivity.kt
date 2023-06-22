@@ -76,6 +76,14 @@ class MainActivity : AppCompatActivity() {
                 findViewById<View>(R.id.registerscreen).visibility = View.VISIBLE
             else
                 findViewById<View>(R.id.registerscreen).visibility = View.GONE
+            if(savedInstanceState.getBoolean("Server"))
+                findViewById<View>(R.id.server).visibility = View.VISIBLE
+            else
+                findViewById<View>(R.id.server).visibility = View.GONE
+            if(savedInstanceState.getBoolean("List"))
+                findViewById<View>(R.id.fileList).visibility = View.VISIBLE
+            else
+                findViewById<View>(R.id.fileList).visibility = View.GONE
         }
 
 
@@ -129,6 +137,8 @@ class MainActivity : AppCompatActivity() {
             R.id.make_public,
             R.id.register,
             R.id.guest,
+            R.id.register_account,
+            R.id.exit_list,
         )){
             findViewById<Button>(id).setOnClickListener(editor)
         }
@@ -191,6 +201,8 @@ class MainActivity : AppCompatActivity() {
                         findViewById<View>(R.id.server_connect_to).visibility = View.GONE//TODO repair
                         Log.e("NEED", "FILES")
                         editor.update_file_list()
+                        clear_ui()
+                        findViewById<View>(R.id.tableLayout).visibility=View.GONE
                     }
                 }
                 else{
@@ -433,5 +445,13 @@ class MainActivity : AppCompatActivity() {
             outState.putBoolean("Register",true)
         else
             outState.putBoolean("Register",false)
+        if(findViewById<View>(R.id.server).visibility == View.VISIBLE)
+            outState.putBoolean("Server",true)
+        else
+            outState.putBoolean("Server",false)
+        if(findViewById<View>(R.id.fileList).visibility == View.VISIBLE)
+            outState.putBoolean("List",true)
+        else
+            outState.putBoolean("List",false)
     }
 }

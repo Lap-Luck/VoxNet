@@ -118,10 +118,9 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
 
                 var fl=conte.findViewById<LinearLayout>(R.id.file_list)
                 if (fl!=null){
-                    for( id in 1..fl.childCount-1){
-                        fl.getChildAt(id).visibility=View.GONE
+                    for( id in 2..fl.childCount-1){
+                        fl.getChildAt(id).visibility = View.GONE
                     }
-
                     for (f in files){
                         var new_button=Button(conte)
                         new_button.text=f.name
@@ -199,12 +198,17 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
             toast.show()
             conte.findViewById<EditText>(R.id.reg_loggin).text.clear()
             conte.findViewById<EditText>(R.id.reg_pass).text.clear()
+
+            var view=conte.findViewById<View>(R.id.registerscreen)
+            view.visibility=View.GONE
+            view=conte.findViewById<View>(R.id.loginscreen)
+            view.visibility=View.VISIBLE
         }
       
-        account=a
-        var view=conte.findViewById<View>(R.id.loginscreen)
-        conte.runOnUiThread({view.visibility=View.GONE})
-        Log.e("LOGIN", a.login)
+        //account=a
+        //var view=conte.findViewById<View>(R.id.loginscreen)
+        //conte.runOnUiThread({view.visibility=View.GONE})
+        //Log.e("LOGIN", a.login)
         }
     }
 
@@ -240,7 +244,18 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
         onButtomPressed()
     }
 
-
+    fun clear_ui(){
+        for (id in intArrayOf(
+            R.id.navigation,
+            R.id.saving,
+            R.id.zoom,
+            R.id.add_del,
+            R.id.color_pallet,
+            R.id.server_connect_to
+        )){
+            conte.findViewById<View>(id).visibility=View.GONE
+        }
+    }
 
     override fun onClick(button: View?) {
         when(button?.id){
@@ -251,6 +266,10 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
             R.id.server_disconnect->{
                 net=null
                 conte.findViewById<TextView>(R.id.server_info).text="local"
+                var view=conte.findViewById<View>(R.id.loginscreen)
+                view.visibility=View.VISIBLE
+                clear_ui()
+                conte.findViewById<View>(R.id.tableLayout).visibility=View.GONE
             }
             R.id.add_file->{
                 Thread{on_add_file()}.start()
@@ -282,12 +301,22 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
             R.id.register->{
                 Thread{on_register()}.start()
             }
+            R.id.exit_list->{
+                var view=conte.findViewById<View>(R.id.fileList)
+                view.visibility = View.GONE
+            }
             R.id.guest->{
                 conte.findViewById<ImageButton>(R.id.server).visibility = View.GONE
                 val toast = Toast.makeText(conte,"Logged in as a guest", Toast.LENGTH_LONG)
                 toast.show()
                 var view=conte.findViewById<View>(R.id.loginscreen)
                 view.visibility=View.GONE
+            }
+            R.id.register_account->{
+                var view=conte.findViewById<View>(R.id.loginscreen)
+                view.visibility=View.GONE
+                view=conte.findViewById<View>(R.id.registerscreen)
+                view.visibility=View.VISIBLE
             }
             R.id.DEL_elem->{
                 var event= arrayOf("DEL",

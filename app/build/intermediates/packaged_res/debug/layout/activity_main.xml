@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/gray">
+
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/options"
+    android:translationZ="2dp">
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_200"
+        android:visibility="gone">
+
+            <ImageButton
+                android:id="@+id/show_nav"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/navigation" />
+
+            <ImageButton
+                android:id="@+id/show_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/adddel" />
+
+
+            <ImageButton
+                android:id="@+id/show_zoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/glass" />
+
+            <ImageButton
+                android:id="@+id/show_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/colorwheel" />
+            <ImageButton
+                android:id="@+id/show_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/floopy" />
+            <ImageButton
+                android:id="@+id/server"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/server" />
+            <ImageButton
+            android:id="@+id/clear_filters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/clear" />
+            <ImageButton
+                android:id="@+id/setings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"
+                app:srcCompat="@drawable/gear" />
+    </TableLayout>
+</ScrollView>
+    <TableLayout
+        android:id="@+id/tableLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_200"
+        android:translationZ="1dp"
+        app:layout_constraintStart_toEndOf="@+id/options"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow>
+
+            <include
+                android:id="@+id/tools"
+                layout="@layout/main_part1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <include
+                android:id="@+id/navigation"
+                layout="@layout/position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <include
+                android:id="@+id/zoom"
+                layout="@layout/zoom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <include
+                android:id="@+id/add_del"
+                layout="@layout/add_del"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </TableRow>
+        <include
+            android:id="@+id/server_connect_to"
+            layout="@layout/server_connect_to"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <include
+            android:id="@+id/saving"
+            layout="@layout/save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent" />
+        <include
+            android:id="@+id/color_pallet"
+            layout="@layout/color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </TableLayout>
+
+    <ImageButton
+        android:id="@+id/options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/glSurfaceView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/gear" />
+
+
+    <android.opengl.GLSurfaceView
+        android:id="@+id/glSurfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="9:9"
+        tools:layout_editor_absoluteX="-80dp" />
+
+    <include
+        android:id="@+id/loginscreen"
+        layout="@layout/login"
+        android:layout_margin="10dp"
+        android:translationZ="110dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <include
+        android:id="@+id/registerscreen"
+        layout="@layout/register"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <include
+        android:id="@+id/fileList"
+        layout="@layout/file_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/server_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="20sp"
+        android:text="local"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/glSurfaceView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
