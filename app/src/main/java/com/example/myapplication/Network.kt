@@ -50,7 +50,7 @@ class Account {
             }
             else{
                 Log.e("LOGIN","LOGIN ERROR")
-                assert(ok=="OK")
+                //assert(ok=="OK")
             }
         }
     }
