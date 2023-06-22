@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.example.myapplication.EditorApp.Companion.cursor3d
 import com.example.myapplication.renderlib.MeshInstance
 import com.example.myapplication.renderlib.Material
@@ -40,10 +41,13 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
         var Camera_start_pos= Vec3(0f,0f,3f)
         var Camera_rot_x=0.0f
         var Camera_rot_y=0.0f
+
+        var net:NetworkFile?=null
+        var account:Account?=null
+
     }
     lateinit var conte:MainActivity
-    var net:NetworkFile?=null
-    var account:Account?=null
+
     fun get_Camera_position():Vec3= Camera_pos
     fun get_Camera_look_at():Vec3= Camera_look_at
 
@@ -82,6 +86,10 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
 
         scene+=arrayOf<MeshInstance>(cursor3d)
     }
+    fun get_account():Account?{
+        return account
+    }
+
     fun n_render():Array<MeshInstance>{
         return scene
     }
@@ -103,24 +111,47 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
         net=NetworkFile({event -> EditVox(event)},f,account!!)
         conte.runOnUiThread{
             conte.findViewById<View>(R.id.fileList).visibility=View.GONE
+            conte.findViewById<TextView>(R.id.server_info).text=f.name
         }
 
     }
 
-    fun on_add_file(){
+
+
+    fun update_file_list(){
+        Thread{
+            var files=query_files(account!!)
+            conte.runOnUiThread({
+
+                var fl=conte.findViewById<LinearLayout>(R.id.file_list)
+                if (fl!=null){
+                    for( id in 1..fl.childCount-1){
+                        fl.removeViewAt(id)
+                    }
+
+                    for (f in files){
+                        var new_button=Button(conte)
+                        new_button.text=f.name
+                        new_button.setOnClickListener({on_file_selected((f))})
+
+                        fl.addView(new_button)
+                    }
+                }
+
+            })
+
+        }.start()
+
+    }
+
+    fun on_add_file(public:Boolean=false){
         Log.e("FILE add","TRY")
         var name=conte.findViewById<EditText>(R.id.file_name).text.toString()
-        add_file(name,account!!)//TODO DO NOT CRUSH
-        var files=query_files(account!!)
-        conte.runOnUiThread({
-            for (f in files){
-                var new_button=Button(conte)
-                new_button.text=f.name
-                new_button.setOnClickListener({on_file_selected((f))})
-                var fl=conte.findViewById<LinearLayout>(R.id.file_list)
-                fl.addView(new_button)
-            }
-        })
+        var f=add_file(name,account!!)//TODO DO NOT CRUSH
+        if(public){
+            make_public(f,account!!)
+        }
+        update_file_list()
 
     }
 
@@ -137,7 +168,7 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
             Log.e("LOGIN", "ACCOUNT EXIST")
             a=Account(login,pass) //login
         }
-        this.account=a
+        account=a
         var view=conte.findViewById<View>(R.id.loginscreen)
         conte.runOnUiThread({view.visibility=View.GONE})
         Log.e("LOGIN", a.login)
@@ -185,10 +216,14 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
             }
             R.id.server_disconnect->{
                 net=null
+                conte.findViewById<TextView>(R.id.server_info).text="local"
             }
             R.id.add_file->{
                 Thread{on_add_file()}.start()
 
+            }
+            R.id.make_public->{
+                Thread{on_add_file()}.start()
             }
 
             R.id.ADD_elem->{

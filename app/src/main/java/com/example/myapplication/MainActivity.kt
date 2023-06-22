@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             R.id.Red_color,R.id.Green_color,R.id.Blue_color,
             R.id.DEL_elem,
             R.id.ADD_elem,
-            R.id.server_connect,
+            //R.id.server_connect,
             R.id.server_disconnect,
             R.id.button_login,
             R.id.add_file,
@@ -169,8 +169,19 @@ class MainActivity : AppCompatActivity() {
             )
             findViewById<Button>(shortcut).setOnClickListener({
                 var window:View=findViewById<View>(view)
-                window.visibility=change[window.visibility]!!
-                findViewById<View>(R.id.server_connect_to).visibility=View.GONE//TODO repair
+                if (it.id==R.id.show_files){
+
+                    if (editor.get_account()!=null) {
+                        window.visibility=change[window.visibility]!!
+                        findViewById<View>(R.id.server_connect_to).visibility = View.GONE//TODO repair
+                        Log.e("NEED", "FILES")
+                        editor.update_file_list()
+                    }
+                }
+                else{
+                    window.visibility=change[window.visibility]!!
+                    findViewById<View>(R.id.server_connect_to).visibility=View.GONE//TODO repair
+                }
             })
         }
 
