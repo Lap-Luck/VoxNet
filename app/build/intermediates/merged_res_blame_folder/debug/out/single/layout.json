@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\register.xml",
+        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\layout\\register.xml"
+    },
+    {
+        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\color.xml",
+        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\layout\\color.xml"
+    },
+    {
+        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\login.xml",
+        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\layout\\login.xml"
+    },
+    {
+        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\server_connect_to.xml",
+        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\layout\\server_connect_to.xml"
+    },
+    {
+        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\zoom.xml",
+        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\layout\\zoom.xml"
+    },
+    {
+        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\position.xml",
+        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\layout\\position.xml"
+    },
+    {
+        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\add_del.xml",
+        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\layout\\add_del.xml"
+    },
+    {
+        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\file_list.xml",
+        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\layout\\file_list.xml"
+    },
+    {
+        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\activity_main.xml",
+        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\save.xml",
+        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\layout\\save.xml"
+    },
+    {
+        "merged": "D:\\Gry\\GitProject\\VoxNet\\app\\build\\intermediates\\incremental\\mergeDebugResources\\stripped.dir\\layout\\main_part1.xml",
+        "source": "D:\\Gry\\GitProject\\VoxNet\\app\\src\\main\\res\\layout\\main_part1.xml"
+    }
+]
