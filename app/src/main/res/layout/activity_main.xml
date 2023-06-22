@@ -166,11 +166,13 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="9:9"
-        tools:layout_editor_absoluteX="-38dp" />
+        tools:layout_editor_absoluteX="-80dp" />
 
     <include
         android:id="@+id/loginscreen"
         layout="@layout/login"
+        android:layout_margin="10dp"
+        android:translationZ="110dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible"
@@ -190,5 +192,16 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/server_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="20sp"
+        android:text="local"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/glSurfaceView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

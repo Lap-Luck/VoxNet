@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import com.example.myapplication.EditorApp.Companion.cursor3d
 import com.example.myapplication.renderlib.MeshInstance
@@ -78,6 +79,10 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
         //net.push("Ala ma kota")
         scene+=arrayOf<MeshInstance>(cursor3d)
     }
+    fun get_account():Account?{
+        return account
+    }
+
     fun n_render():Array<MeshInstance>{
         return scene
     }
@@ -99,24 +104,47 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
         net=NetworkFile({event -> EditVox(event)},f,account!!)
         conte.runOnUiThread{
             conte.findViewById<View>(R.id.fileList).visibility=View.GONE
+            conte.findViewById<TextView>(R.id.server_info).text=f.name
         }
 
     }
 
-    fun on_add_file(){
+
+
+    fun update_file_list(){
+        Thread{
+            var files=query_files(account!!)
+            conte.runOnUiThread({
+
+                var fl=conte.findViewById<LinearLayout>(R.id.file_list)
+                if (fl!=null){
+                    for( id in 1..fl.childCount-1){
+                        fl.removeViewAt(id)
+                    }
+
+                    for (f in files){
+                        var new_button=Button(conte)
+                        new_button.text=f.name
+                        new_button.setOnClickListener({on_file_selected((f))})
+
+                        fl.addView(new_button)
+                    }
+                }
+
+            })
+
+        }.start()
+
+    }
+
+    fun on_add_file(public:Boolean=false){
         Log.e("FILE add","TRY")
         var name=conte.findViewById<EditText>(R.id.file_name).text.toString()
-        add_file(name,account!!)//TODO DO NOT CRUSH
-        var files=query_files(account!!)
-        conte.runOnUiThread({
-            for (f in files){
-                var new_button=Button(conte)
-                new_button.text=f.name
-                new_button.setOnClickListener({on_file_selected((f))})
-                var fl=conte.findViewById<LinearLayout>(R.id.file_list)
-                fl.addView(new_button)
-            }
-        })
+        var f=add_file(name,account!!)//TODO DO NOT CRUSH
+        if(public){
+            make_public(f,account!!)
+        }
+        update_file_list()
     }
 
     fun on_login(){
@@ -171,7 +199,13 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
             toast.show()
             conte.findViewById<EditText>(R.id.reg_loggin).text.clear()
             conte.findViewById<EditText>(R.id.reg_pass).text.clear()
-        }}
+        }
+      
+        account=a
+        var view=conte.findViewById<View>(R.id.loginscreen)
+        conte.runOnUiThread({view.visibility=View.GONE})
+        Log.e("LOGIN", a.login)
+        }
     }
 
     fun EditVox(info:String){
@@ -216,8 +250,13 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
             }
             R.id.server_disconnect->{
                 net=null
+                conte.findViewById<TextView>(R.id.server_info).text="local"
             }
             R.id.add_file->{
+                Thread{on_add_file()}.start()
+            }
+
+            R.id.make_public->{
                 Thread{on_add_file()}.start()
             }
             R.id.ADD_elem->{

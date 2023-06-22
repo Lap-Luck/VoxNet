@@ -24,6 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/server_connect"></Button>
 
+
     <Button
         android:id="@+id/show_login"
         android:layout_width="match_parent"
@@ -31,6 +32,7 @@
         android:text="Login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/server_disconnect" />
+
 
     <Button
         android:id="@+id/show_register"
@@ -44,7 +46,7 @@
         android:id="@+id/show_files"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Server Files"
+        android:text="Join Server"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/show_register" />
 
