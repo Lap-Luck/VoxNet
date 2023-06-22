@@ -6,7 +6,6 @@ My voxel Editor made with Koltin and openGL
 2.Add, move and remove composite objects;<br>
 3.import point cloud to boost your editing;<br>
 4.export your model to games specyfic format;<br>
-test!!!!!!
 #
 
 
