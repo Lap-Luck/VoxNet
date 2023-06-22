@@ -7,7 +7,7 @@ import java.io.InputStreamReader
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
-val server_url="https://????
+val server_url="https://michapp.pythonanywhere.com"
 
 fun requestGet(page:String):String {
     val url = URL(page)
@@ -50,7 +50,7 @@ class Account {
             }
             else{
                 Log.e("LOGIN","LOGIN ERROR")
-                assert(ok=="OK")
+                //assert(ok=="OK")
             }
         }
     }
