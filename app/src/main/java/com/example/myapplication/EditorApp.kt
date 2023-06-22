@@ -119,7 +119,6 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
                 var fl=conte.findViewById<LinearLayout>(R.id.file_list)
                 if (fl!=null){
                     for( id in 2..fl.childCount-1){
-                        //fl.removeViewAt(id)
                         fl.getChildAt(id).visibility = View.GONE
                     }
                     for (f in files){
