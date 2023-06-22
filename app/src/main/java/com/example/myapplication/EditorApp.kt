@@ -5,7 +5,9 @@ import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.example.myapplication.EditorApp.Companion.cursor3d
 import com.example.myapplication.renderlib.MeshInstance
 import com.example.myapplication.renderlib.Material
@@ -40,10 +42,13 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
         var Camera_start_pos= Vec3(0f,0f,3f)
         var Camera_rot_x=0.0f
         var Camera_rot_y=0.0f
+
+        var net:NetworkFile?=null
+        var account:Account?=null
+
     }
     lateinit var conte:MainActivity
-    var net:NetworkFile?=null
-    var account:Account?=null
+
     fun get_Camera_position():Vec3= Camera_pos
     fun get_Camera_look_at():Vec3= Camera_look_at
 
@@ -69,17 +74,8 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
                 }
             }
         )
-
-
-
-
         //net.clear()
         //net.push("Ala ma kota")
-
-
-
-
-
         scene+=arrayOf<MeshInstance>(cursor3d)
     }
     fun n_render():Array<MeshInstance>{
@@ -121,7 +117,6 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
                 fl.addView(new_button)
             }
         })
-
     }
 
     fun on_login(){
@@ -132,15 +127,51 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
         var login=et_login.text.toString()
         var pass=et_pass.text.toString()
         Log.e("LOGIN", login+"->"+pass)
-        var a=Account(login,pass,true) //register
+        var a=Account(login,pass,false) //register
+
+        conte.runOnUiThread{
         if (a.login==""){
-            Log.e("LOGIN", "ACCOUNT EXIST")
-            a=Account(login,pass) //login
+            val toast = Toast.makeText(conte,"Login error", Toast.LENGTH_LONG)
+            toast.show()
+            conte.findViewById<EditText>(R.id.editText_login).text.clear()
+            conte.findViewById<EditText>(R.id.editText_pass).text.clear()
         }
-        this.account=a
-        var view=conte.findViewById<View>(R.id.loginscreen)
-        conte.runOnUiThread({view.visibility=View.GONE})
-        Log.e("LOGIN", a.login)
+        else
+        {
+            val toast = Toast.makeText(conte,"You have successfully logged in", Toast.LENGTH_LONG)
+            toast.show()
+            conte.findViewById<EditText>(R.id.editText_login).text.clear()
+            conte.findViewById<EditText>(R.id.editText_pass).text.clear()
+            account=a
+            var view=conte.findViewById<View>(R.id.loginscreen)
+            conte.runOnUiThread({view.visibility=View.GONE})
+            Log.e("LOGIN", a.login)
+        }}
+
+    }
+
+    fun on_register(){
+        var et_login=conte.findViewById<EditText>(R.id.reg_loggin)
+        var et_pass=conte.findViewById<EditText>(R.id.reg_pass)
+
+        var login=et_login.text.toString()
+        var pass=et_pass.text.toString()
+
+        var a=Account(login,pass,true)
+        conte.runOnUiThread{
+        if (a.login==""){
+            val toast = Toast.makeText(conte,"Account already exists", Toast.LENGTH_LONG)
+            toast.show()
+            conte.findViewById<EditText>(R.id.reg_loggin).text.clear()
+            conte.findViewById<EditText>(R.id.reg_pass).text.clear()
+        }
+        else
+        {
+            val toast = Toast.makeText(conte,"Successful registration", Toast.LENGTH_LONG)
+            toast.show()
+            conte.findViewById<EditText>(R.id.reg_loggin).text.clear()
+            conte.findViewById<EditText>(R.id.reg_pass).text.clear()
+        }}
     }
 
     fun EditVox(info:String){
@@ -188,9 +219,7 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
             }
             R.id.add_file->{
                 Thread{on_add_file()}.start()
-
             }
-
             R.id.ADD_elem->{
                 var event= arrayOf("ADD",
                     cursor3d.pos.x.toString(),
@@ -206,13 +235,20 @@ class EditorApp: View.OnClickListener,View.OnTouchListener{
                 else{
                     EditVox(event)
                 }
-
-
-
             }
             R.id.button_login->{
                 Thread{on_login()}.start()
 
+            }
+            R.id.register->{
+                Thread{on_register()}.start()
+            }
+            R.id.guest->{
+                conte.findViewById<ImageButton>(R.id.server).visibility = View.GONE
+                val toast = Toast.makeText(conte,"Logged in as a guest", Toast.LENGTH_LONG)
+                toast.show()
+                var view=conte.findViewById<View>(R.id.loginscreen)
+                view.visibility=View.GONE
             }
             R.id.DEL_elem->{
                 var event= arrayOf("DEL",

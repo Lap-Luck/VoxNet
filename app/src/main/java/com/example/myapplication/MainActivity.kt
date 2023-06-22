@@ -68,6 +68,14 @@ class MainActivity : AppCompatActivity() {
                 findViewById<View>(R.id.saving).visibility = View.VISIBLE
             if(savedInstanceState.getString("File_name") != null)
                 binding.saving.FileName.setText(savedInstanceState.getString("File_name"))
+            if(savedInstanceState.getBoolean("Login"))
+                findViewById<View>(R.id.loginscreen).visibility = View.VISIBLE
+            else
+                findViewById<View>(R.id.loginscreen).visibility = View.GONE
+            if(savedInstanceState.getBoolean("Register"))
+                findViewById<View>(R.id.registerscreen).visibility = View.VISIBLE
+            else
+                findViewById<View>(R.id.registerscreen).visibility = View.GONE
         }
 
 
@@ -119,6 +127,8 @@ class MainActivity : AppCompatActivity() {
             R.id.button_login,
             R.id.add_file,
             R.id.make_public,
+            R.id.register,
+            R.id.guest,
         )){
             findViewById<Button>(id).setOnClickListener(editor)
         }
@@ -129,7 +139,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.saving,
                 R.id.zoom,
                 R.id.add_del,
-                R.id.color_pallet
+                R.id.color_pallet,
+                R.id.server_connect_to
             )){
                 findViewById<View>(id).visibility=View.GONE
             }
@@ -159,7 +170,8 @@ class MainActivity : AppCompatActivity() {
 
         var shortcut2viewB= mapOf(
             R.id.show_files to R.id.fileList,
-            R.id.show_login to R.id.loginscreen
+            R.id.show_login to R.id.loginscreen,
+            R.id.show_register to R.id.registerscreen
         )
         for ((shortcut,view) in shortcut2viewB){
             val change=mapOf(
@@ -262,7 +274,6 @@ class MainActivity : AppCompatActivity() {
 
                 Log.e("READ CONTENT","OK")
                 var fileInputStream = FileInputStream(myFile)
-
                 var inputStreamReader: InputStreamReader = InputStreamReader(fileInputStream)
                 val bufferedReader: BufferedReader = BufferedReader(inputStreamReader)
                 val stringBuilder: StringBuilder = StringBuilder()
@@ -400,5 +411,13 @@ class MainActivity : AppCompatActivity() {
             outState.putBoolean("Save",true)
         else
             outState.putBoolean("Save",false)
+        if(findViewById<View>(R.id.loginscreen).visibility == View.VISIBLE)
+            outState.putBoolean("Login",true)
+        else
+            outState.putBoolean("Login",false)
+        if(findViewById<View>(R.id.registerscreen).visibility == View.VISIBLE)
+            outState.putBoolean("Register",true)
+        else
+            outState.putBoolean("Register",false)
     }
 }
